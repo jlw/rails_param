@@ -1,2 +1,0 @@
-describe RailsParam do
-end

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+versions=('3.2.8' '3.3.8' '3.4.2')
+
+switcher=`which asdf`
+if [[ $switcher = *[!\ ]* ]]; then
+  verb="local ruby"
+  install_verb="install ruby"
+else
+  switcher=`which rbenv`
+  if [[ $switcher = *[!\ ]* ]]; then
+    verb="local"
+    install_verb="install"
+  else
+    switcher=`which rvm`
+    if [[ $switcher = *[!\ ]* ]]; then
+      verb="use"
+      install_verb="install"
+    else
+      echo "Please install asdf, rbenv, or rvm"
+      exit 1
+    fi
+  fi
+fi
+
+case "$1" in
+  compile)
+    for version in ${versions[@]}
+    do
+      echo "Ensure Ruby $version installed and bundled"
+      eval "$switcher $install_verb $version"
+      eval "$switcher $verb $version"
+      bundle install
+    done
+    ;;
+
+  install)
+    for version in ${versions[@]}
+    do
+      echo "Appraisal install for Ruby $version"
+      eval "$switcher $verb $version"
+      bundle exec appraisal install
+    done
+    ;;
+
+  rspec)
+    for version in ${versions[@]}
+    do
+      echo "Run appraisal specs with Ruby $version"
+      eval "$switcher $verb $version"
+      bundle exec appraisal rspec
+    done
+    ;;
+
+  *)
+    echo $"Usage: $0 {compile|install|rspec}"
+    exit 1
+esac
+
+exit 0

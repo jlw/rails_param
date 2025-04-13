@@ -1,9 +1,9 @@
-pkg
-README.html
-.rvmrc
 .bundle
-Gemfile.lock
-*.gem
-.idea
-tmp/
+.ruby-version
+.tool-versions
 coverage/
+Gemfile.lock*
+gemfiles/
+pkg/
+README.html
+tmp/

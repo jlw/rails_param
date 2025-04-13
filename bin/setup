@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Removing stale gem version locks and installing"
+if [ -f "Gemfile.lock" ]; then
+  rm Gemfile.lock
+fi
+rm gemfiles/*.lock
+bundle install
+
+./bin/run compile
+./bin/run install
+./bin/run rspec

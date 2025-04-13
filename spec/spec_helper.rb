@@ -7,6 +7,6 @@ require 'date'
 
 require 'action_controller'
 require 'fixtures/controllers'
-require 'rails_param'
+require 'rails_simple_params'
 require 'rspec/rails'
-Dir["./spec/rails_param/validator/shared_examples/**/*.rb"].sort.each { |f| require f }
+Dir['./spec/rails_simple_params/validator/shared_examples/**/*.rb'].each { |f| require f }

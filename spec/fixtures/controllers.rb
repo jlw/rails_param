@@ -4,19 +4,19 @@ class FakeController < ActionController::Base
   include Rails.application.routes.url_helpers
 
   def show
-    render plain: "Foo"
+    render plain: 'Foo'
   end
 
   def index
-    param! :sort, String, in: %w(asc desc), default: "asc", transform: :downcase
+    param! :sort, String, in: %w[asc desc], default: 'asc', transform: :downcase
     param! :page, Integer, default: 1
     param! :tags, Array
 
-    render plain: "index"
+    render plain: 'index'
   end
 
   def new
-    render plain: "new"
+    render plain: 'new'
   end
 
   def edit
