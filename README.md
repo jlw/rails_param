@@ -36,7 +36,7 @@ As usual, in your Gemfile...
   gem 'rails_simple_params'
 ```
 
-## Migrating from `rails_param`
+### Migrating from `rails_param`
 
 Change any code you have rescuing `RailsParam::InvalidParameterError` to instead
 rescue `RailsSimpleParam::InvalidParameter` so you will continue to provide any
@@ -59,7 +59,7 @@ exception classes:
 - `RailsSimpleParam::TooShort`
 - `RailsSimpleParam::TooSmall`
 
-## Example
+## Using this Gem
 
 ``` ruby
   # GET /search?q=example
