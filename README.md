@@ -39,7 +39,25 @@ As usual, in your Gemfile...
 ## Migrating from `rails_param`
 
 Change any code you have rescuing `RailsParam::InvalidParameterError` to instead
-rescue `RailsSimpleParam::InvalidParameter`.
+rescue `RailsSimpleParam::InvalidParameter` so you will continue to provide any
+customized HTTP `4xx` responses appropriate for your app.
+
+If you want to handle different types of validations separately — especially if
+you want to handle your own I18n translations for the default English error
+messages provided by this gem — you can rescue from any/all of the sub-classed
+exception classes:
+
+- `RailsSimpleParam::EmptyParameter`
+- `RailsSimpleParam::InvalidFormat`
+- `RailsSimpleParam::InvalidIdentity`
+- `RailsSimpleParam::InvalidOption`
+- `RailsSimpleParam::InvalidType`
+- `RailsSimpleParam::MissingParameter`
+- `RailsSimpleParam::OutOfRange`
+- `RailsSimpleParam::TooLarge`
+- `RailsSimpleParam::TooLong`
+- `RailsSimpleParam::TooShort`
+- `RailsSimpleParam::TooSmall`
 
 ## Example
 
