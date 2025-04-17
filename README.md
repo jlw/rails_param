@@ -125,7 +125,7 @@ is passed. A `default` can be defined as either a default value or as a `Proc`
 (and `in` options can also be a `Proc`):
 
 ```ruby
-param! :attribution, String, default: "©"
+param! :attribution, String, default: '©'
 param! :year, Integer, in: lambda { (Time.now.year-5..Time.now.year+5) }, default: lambda { Time.now.year }
 ```
 
