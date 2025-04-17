@@ -90,11 +90,11 @@ are automatically stripped when converting to `BigDecimal`.
 - `String`
 - `Integer`
 - `Float`
-- `:boolean/TrueClass/FalseClass` _('1/0', 'true/false', 't/f', 'yes/no', 'y/n')_
-- `Array` _('1,2,3,4,5')_
-- `Hash` _('key1:value1,key2:value2')_
+- `:boolean/TrueClass/FalseClass` ('1/0', 'true/false', 't/f', 'yes/no', 'y/n')
+- `Array` (e.g. '1,2,3,4,5')
+- `Hash` (e.g. 'key1:value1,key2:value2')
 - `Date`, `Time`, & `DateTime`
-- `BigDecimal` _('$100,000,000,000')_
+- `BigDecimal` (e.g. '$100,000,000,000')
 
 ### Validations
 
