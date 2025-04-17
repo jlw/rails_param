@@ -25,9 +25,9 @@ describe RailsSimpleParams::Validator::Max do
 
     context 'value given is invalid' do
       let(:max)           { 49 }
-      let(:error_message) { "Parameter foo cannot be greater than #{max}" }
+      let(:error_message) { "foo cannot be greater than #{max}" }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises TooLarge'
     end
   end
 end

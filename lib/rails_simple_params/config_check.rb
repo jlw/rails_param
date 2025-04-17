@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RailsSimpleParams
-  class Coercion
+  class ConfigCheck
     PARAM_TYPE_MAPPING = {
       Integer => IntegerParam,
       Float => FloatParam,
@@ -17,17 +17,8 @@ module RailsSimpleParams
       boolean: BooleanParam
     }.freeze
 
-    attr_reader :coercion, :param
-
     def initialize(param, type, options)
-      @param = param
-      @coercion = klass_for(type).new(param: param, options: options, type: type)
-    end
-
-    def coerce
-      return nil if param.nil?
-
-      coercion.coerce
+      klass_for(type).new(param: param, options: options, type: type)
     end
 
     private

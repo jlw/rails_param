@@ -33,8 +33,8 @@ describe RailsSimpleParams::Validator do
   end
 
   describe '#valid!' do
-    it 'raises an InvalidParameterError if not subclassed' do
-      expect { subject.valid! }.to raise_error RailsSimpleParams::InvalidParameterError
+    it 'raises an InvalidParameter if not subclassed' do
+      expect { subject.valid! }.to raise_error RailsSimpleParams::InvalidParameter
     end
   end
 end

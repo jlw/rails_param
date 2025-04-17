@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class StringParam < VirtualParam
+    class StringParam < Base
       def coerce
         String(param)
       end

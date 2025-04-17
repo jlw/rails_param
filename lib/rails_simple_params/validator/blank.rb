@@ -19,7 +19,11 @@ module RailsSimpleParams
       private
 
       def error_message
-        "Parameter #{name} cannot be blank"
+        "#{name} cannot be blank"
+      end
+
+      def exception_class
+        EmptyParameter
       end
     end
   end

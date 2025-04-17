@@ -10,7 +10,11 @@ module RailsSimpleParams
       private
 
       def error_message
-        "Parameter #{name} must be #{options[:is]}"
+        "#{name} must be #{options[:is]}"
+      end
+
+      def exception_class
+        InvalidIdentity
       end
     end
   end

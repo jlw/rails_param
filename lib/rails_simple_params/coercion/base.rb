@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class VirtualParam
+    class Base
       attr_reader :param, :options, :type
 
       def initialize(param:, options: nil, type: nil)
@@ -13,14 +13,12 @@ module RailsSimpleParams
       end
 
       def coerce
-        nil
+        raise NotImplementedError, "you must implement #coerce in #{self.class.name}"
       end
 
       private
 
-      def argument_validation
-        nil
-      end
+      def argument_validation; end
     end
   end
 end

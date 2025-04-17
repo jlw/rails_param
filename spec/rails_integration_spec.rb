@@ -20,21 +20,21 @@ describe FakeController, type: :controller do
       expect(controller.params[:page]).to eq 666
     end
 
-    it 'raises InvalidParameterError if supplied an array instead of other type (prevent TypeError)' do
+    it 'raises InvalidType if supplied an array instead of other type (prevent TypeError)' do
       expect { get :index, **prepare_params(page: %w[a b c]) }.to raise_error(
-        RailsSimpleParams::InvalidParameterError, %q('["a", "b", "c"]' is not a valid Integer)
+        RailsSimpleParams::InvalidType, %q('["a", "b", "c"]' is not a valid Integer)
       )
     end
 
-    it 'raises InvalidParameterError if supplied an hash instead of other type (prevent TypeError)' do
+    it 'raises InvalidType if supplied a hash instead of other type (prevent TypeError)' do
       expect { get :index, **prepare_params(page: { 'a' => 'b', 'c' => 'd' }) }.to raise_error(
-        RailsSimpleParams::InvalidParameterError, "#{object_error_text} is not a valid Integer"
+        RailsSimpleParams::InvalidType, "#{object_error_text} is not a valid Integer"
       )
     end
 
-    it 'raises InvalidParameterError if supplied an hash instead of an array (prevent NoMethodError)' do
+    it 'raises InvalidType if supplied a hash instead of an array (prevent NoMethodError)' do
       expect { get :index, **prepare_params(tags: { 'a' => 'b', 'c' => 'd' }) }.to raise_error(
-        RailsSimpleParams::InvalidParameterError, "#{object_error_text} is not a valid Array"
+        RailsSimpleParams::InvalidType, "#{object_error_text} is not a valid Array"
       )
     end
   end
@@ -71,7 +71,7 @@ describe FakeController, type: :controller do
         }
       }
       expect { get :edit, **prepare_params(params) }.to(raise_error do |error|
-        expect(error).to be_a(RailsSimpleParams::InvalidParameterError)
+        expect(error).to be_a(RailsSimpleParams::MissingParameter)
         expect(error.param).to eq 'book[author][first_name]'
         expect(error.options).to eq({ required: true })
       end)
@@ -90,10 +90,10 @@ describe FakeController, type: :controller do
     end
   end
 
-  describe 'InvalidParameterError' do
+  describe 'InvalidOption' do
     it 'raises an exception with params attributes' do
       expect { get :index, **prepare_params(sort: 'foo') }.to(raise_error do |error|
-        expect(error).to be_a(RailsSimpleParams::InvalidParameterError)
+        expect(error).to be_a(RailsSimpleParams::InvalidOption)
         expect(error.param).to eq 'sort'
         expect(error.options).to eq({ in: %w[asc desc], default: 'asc', transform: :downcase })
       end)

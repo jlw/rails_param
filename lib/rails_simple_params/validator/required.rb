@@ -10,7 +10,11 @@ module RailsSimpleParams
       end
 
       def error_message
-        "Parameter #{name} is required"
+        "#{name} is required"
+      end
+
+      def exception_class
+        MissingParameter
       end
     end
   end

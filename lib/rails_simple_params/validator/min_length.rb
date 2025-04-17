@@ -10,7 +10,11 @@ module RailsSimpleParams
       private
 
       def error_message
-        "Parameter #{name} cannot have length less than #{options[:min_length]}"
+        "#{name} cannot be shorter than #{options[:min_length]} characters"
+      end
+
+      def exception_class
+        TooShort
       end
     end
   end

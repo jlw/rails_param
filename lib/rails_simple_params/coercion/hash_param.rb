@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class HashParam < VirtualParam
+    class HashParam < Base
       def coerce
         return param if param.is_a?(ActionController::Parameters)
         raise ArgumentError unless param.respond_to?(:split)
@@ -13,7 +13,7 @@ module RailsSimpleParams
       private
 
       def argument_validation
-        raise ArgumentError unless type == Hash
+        raise InvalidConfiguration unless type == Hash
       end
     end
   end

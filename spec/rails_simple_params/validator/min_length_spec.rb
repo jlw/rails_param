@@ -25,9 +25,9 @@ describe RailsSimpleParams::Validator::MinLength do
 
     context 'value given is invalid' do
       let(:min_length)    { 44 }
-      let(:error_message) { "Parameter foo cannot have length less than #{min_length}" }
+      let(:error_message) { "foo cannot be shorter than #{min_length} characters" }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises TooShort'
     end
   end
 end

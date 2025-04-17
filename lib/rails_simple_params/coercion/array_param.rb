@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class ArrayParam < VirtualParam
+    class ArrayParam < Base
       def coerce
         return param if param.is_a?(Array)
 

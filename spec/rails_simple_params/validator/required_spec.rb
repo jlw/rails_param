@@ -30,16 +30,16 @@ describe RailsSimpleParams::Validator::Required do
     end
 
     context 'value is not present' do
-      let(:error_message) { 'Parameter foo is required' }
+      let(:error_message) { 'foo is required' }
       let(:value)         { nil }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises MissingParameter'
 
       context 'with a custom message' do
         let(:error_message) { 'No price specified.' }
         let(:options)       { { required: true, message: error_message } }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises MissingParameter'
       end
     end
 

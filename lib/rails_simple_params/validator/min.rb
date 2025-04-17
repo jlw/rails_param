@@ -10,7 +10,11 @@ module RailsSimpleParams
       private
 
       def error_message
-        "Parameter #{name} cannot be less than #{options[:min]}"
+        "#{name} cannot be less than #{options[:min]}"
+      end
+
+      def exception_class
+        TooSmall
       end
     end
   end

@@ -25,9 +25,9 @@ describe RailsSimpleParams::Validator::MaxLength do
 
     context 'value given is invalid' do
       let(:max_length)    { 2 }
-      let(:error_message) { "Parameter foo cannot have length greater than #{max_length}" }
+      let(:error_message) { "foo cannot be longer than #{max_length} characters" }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises TooLong'
     end
   end
 end

@@ -36,6 +36,11 @@ As usual, in your Gemfile...
   gem 'rails_simple_params'
 ```
 
+## Migrating from `rails_param`
+
+Change any code you have rescuing `RailsParam::InvalidParameterError` to instead
+rescue `RailsSimpleParam::InvalidParameter`.
+
 ## Example
 
 ``` ruby
@@ -48,6 +53,7 @@ As usual, in your Gemfile...
     param! :sort,       String, default: 'title'
     param! :order,      String, in: %w(asc desc), transform: :downcase, default: 'asc'
     param! :price,      String, format: /[<\=>]\s*\$\d+/
+    param! :results,    Integer, in: (10..100)
 
     # Access the parameters using the params object (e.g. `params[:q]`) as you usually do...
   end
@@ -70,23 +76,23 @@ are automatically stripped when converting to `BigDecimal`.
 - `Array` _('1,2,3,4,5')_
 - `Hash` _('key1:value1,key2:value2')_
 - `Date`, `Time`, & `DateTime`
-- `BigDecimal` _('$1,000,000')_
+- `BigDecimal` _('$100,000,000,000')_
 
 ### Validations
 
 Encapsulate business logic in a consistent way with validations. If a parameter
 does not satisfy a particular condition, an exception
-(RailsSimpleParams::InvalidParameterError) is raised. You may use the
-[rescue_from][method-rescue-from] method in your controller to catch this kind
-of exception.
+(RailsSimpleParams::InvalidParameter or one of its subclasses) is raised. You
+may use the [rescue_from][method-rescue-from] method in your controller to catch
+this kind of exception.
 
-- `required`
 - `blank`
+- `format`
 - `is`
-- `in`, `within`, `range`
+- `in` (for arrays / ranges / sets)
 - `min` / `max`
 - `min_length` / `max_length`
-- `format`
+- `required`
 
 Customize exception message with option `:message`
 
@@ -97,11 +103,12 @@ param! :q, String, required: true, message: 'Query not specified'
 ### Defaults and Transformations
 
 Passing a `default` option will provide a default value for a parameter if none
-is passed. A `default` can be defined as either a default value or as a `Proc`:
+is passed. A `default` can be defined as either a default value or as a `Proc`
+(and `in` options can also be a `Proc`):
 
 ```ruby
 param! :attribution, String, default: "©"
-param! :year, Integer, default: lambda { Time.now.year }
+param! :year, Integer, in: lambda { (Time.now.year-5..Time.now.year+5) }, default: lambda { Time.now.year }
 ```
 
 Use the `transform` option to take even more of the business logic of parameter
@@ -155,8 +162,8 @@ end
 ## Many thanks to:
 
 - [Nicolas Blanco](http://twitter.com/nblanco_fr)
-- [Mattt Thompson (@mattt)](https://twitter.com/mattt)
-- [Vincent Ollivier (@vinc686)](https://twitter.com/vinc686)
+- [Mattt Thompson](https://twitter.com/mattt)
+- [Vincent Ollivier](https://twitter.com/vinc686)
 
 ## License
 

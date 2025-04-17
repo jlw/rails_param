@@ -10,7 +10,11 @@ module RailsSimpleParams
       private
 
       def error_message
-        "Parameter #{name} cannot be greater than #{options[:max]}"
+        "#{name} cannot be greater than #{options[:max]}"
+      end
+
+      def exception_class
+        TooLarge
       end
     end
   end

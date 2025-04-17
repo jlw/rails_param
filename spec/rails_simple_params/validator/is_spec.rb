@@ -24,9 +24,9 @@ describe RailsSimpleParams::Validator::Is do
 
     context 'value given is invalid' do
       let(:value)         { '51' }
-      let(:error_message) { 'Parameter foo must be 50' }
+      let(:error_message) { 'foo must be 50' }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises InvalidIdentity'
     end
   end
 end

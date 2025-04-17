@@ -25,9 +25,9 @@ describe RailsSimpleParams::Validator::Format do
 
     context 'value given is invalid' do
       let(:value)         { '50' }
-      let(:error_message) { "Parameter foo must match format #{format_validation}" }
+      let(:error_message) { "foo must match format #{format_validation}" }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises InvalidFormat'
     end
   end
 end

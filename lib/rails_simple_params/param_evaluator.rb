@@ -14,6 +14,7 @@ module RailsSimpleParams
       return unless params.include?(name) || check_param_presence?(options[:default]) || options[:required]
 
       parameter_name = @context ? "#{@context}[#{name}]" : name
+      check_config(parameter_name, type, options)
       coerced_value = coerce(parameter_name, params[name], type, options)
 
       parameter = RailsSimpleParams::Parameter.new(
@@ -28,8 +29,8 @@ module RailsSimpleParams
 
       # validate presence
       if params[name].nil? && options[:required]
-        raise InvalidParameterError.new(
-          "Parameter #{parameter_name} is required",
+        raise MissingParameter.new(
+          "#{parameter_name} is required",
           param: parameter_name,
           options: options
         )
@@ -49,6 +50,33 @@ module RailsSimpleParams
 
     private
 
+    def coerce(param_name, param, type, options = {})
+      return nil if param.nil?
+      return param if begin
+        param.is_a?(type)
+      rescue StandardError
+        false
+      end
+
+      Coercion.new(param, type, options).coerce
+    rescue ArgumentError, TypeError
+      raise InvalidType.new("'#{param}' is not a valid #{type}", param: param_name)
+    end
+
+    def check_config(param_name, type, options = {})
+      ConfigCheck.new(param_name, type, options)
+    end
+
+    def check_param_presence?(param)
+      !param.nil?
+    end
+
+    def recurse(element, context, index = nil)
+      raise InvalidConfiguration.new('no block given', param: element) unless block_given?
+
+      yield(ParamEvaluator.new(element, context), index)
+    end
+
     def recurse_on_parameter(parameter, &) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       return if parameter.value.nil?
 
@@ -63,29 +91,6 @@ module RailsSimpleParams
       else
         recurse(parameter.value, parameter.name, &)
       end
-    end
-
-    def recurse(element, context, index = nil)
-      raise InvalidParameterError, 'no block given' unless block_given?
-
-      yield(ParamEvaluator.new(element, context), index)
-    end
-
-    def check_param_presence?(param)
-      !param.nil?
-    end
-
-    def coerce(param_name, param, type, options = {})
-      return nil if param.nil?
-      return param if begin
-        param.is_a?(type)
-      rescue StandardError
-        false
-      end
-
-      Coercion.new(param, type, options).coerce
-    rescue ArgumentError, TypeError
-      raise InvalidParameterError.new("'#{param}' is not a valid #{type}", param: param_name)
     end
 
     def validate!(param)

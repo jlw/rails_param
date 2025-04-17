@@ -39,7 +39,7 @@ module RailsSimpleParams
     def valid!
       return if valid_value?
 
-      raise InvalidParameterError.new(
+      raise exception_class.new(
         error_message,
         param: name,
         options: options
@@ -55,6 +55,10 @@ module RailsSimpleParams
 
     def error_message
       nil
+    end
+
+    def exception_class
+      InvalidParameter
     end
 
     def valid_value?

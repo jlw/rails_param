@@ -13,9 +13,13 @@ module RailsSimpleParams
       private
 
       def error_message
-        return "Parameter #{name} must be a string if using the format validation" unless matches_string_or_time_types?
+        return "#{name} must be a string if using the format validation" unless matches_string_or_time_types?
 
-        "Parameter #{name} must match format #{options[:format]}" unless string_in_format?
+        "#{name} must match format #{options[:format]}" unless string_in_format?
+      end
+
+      def exception_class
+        matches_string_or_time_types? ? InvalidFormat : InvalidConfiguration
       end
 
       def matches_time_types?
@@ -27,7 +31,7 @@ module RailsSimpleParams
       end
 
       def string_in_format?
-        value =~ options[:format] && value.is_a?(String)
+        value.is_a?(String) && value =~ options[:format]
       end
     end
   end

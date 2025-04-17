@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RailsSimpleParams::Validator::Custom do
   let(:custom_validation) do
     lambda { |v|
-      raise RailsSimpleParams::InvalidParameterError, 'Number is not even' if v.odd?
+      raise RailsSimpleParams::InvalidParameter, 'Number is not even' if v.odd?
     }
   end
   let(:name)              { 'foo' }
@@ -31,7 +31,7 @@ describe RailsSimpleParams::Validator::Custom do
       let(:value)         { 51 }
       let(:error_message) { 'Number is not even' }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises InvalidParameter'
     end
   end
 end

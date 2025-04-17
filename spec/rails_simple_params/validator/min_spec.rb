@@ -25,9 +25,9 @@ describe RailsSimpleParams::Validator::Min do
 
     context 'value given is invalid' do
       let(:min)           { 51 }
-      let(:error_message) { "Parameter foo cannot be less than #{min}" }
+      let(:error_message) { "foo cannot be less than #{min}" }
 
-      it_behaves_like 'raises InvalidParameterError'
+      it_behaves_like 'raises TooSmall'
     end
   end
 end

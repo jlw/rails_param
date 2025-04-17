@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class BigDecimalParam < VirtualParam
+    class BigDecimalParam < Base
       DEFAULT_PRECISION = 14
 
       def coerce

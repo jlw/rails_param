@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class TimeParam < VirtualParam
+    class TimeParam < Base
       def coerce
         return nil if param == '' # e.g. from an empty field in an HTML form
 
@@ -14,7 +14,7 @@ module RailsSimpleParams
       private
 
       def argument_validation
-        raise ArgumentError unless type.respond_to?(:parse)
+        raise InvalidConfiguration unless type.respond_to?(:parse)
       end
     end
   end

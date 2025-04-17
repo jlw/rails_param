@@ -2,7 +2,7 @@
 
 module RailsSimpleParams
   class Coercion
-    class BooleanParam < VirtualParam
+    class BooleanParam < Base
       FALSEY = /^(false|f|no|n|0)$/i
       TRUTHY = /^(true|t|yes|y|1)$/i
 

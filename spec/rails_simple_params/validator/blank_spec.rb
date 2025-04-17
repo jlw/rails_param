@@ -4,7 +4,7 @@ describe RailsSimpleParams::Validator::Required do
   let(:name)          { 'foo' }
   let(:options)       { { blank: false } }
   let(:type)          { String }
-  let(:error_message) { 'Parameter foo cannot be blank' }
+  let(:error_message) { 'foo cannot be blank' }
   let(:parameter) do
     RailsSimpleParams::Parameter.new(
       name: name,
@@ -27,7 +27,7 @@ describe RailsSimpleParams::Validator::Required do
       context 'is empty' do
         let(:value) { '' }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises EmptyParameter'
       end
     end
 
@@ -41,7 +41,7 @@ describe RailsSimpleParams::Validator::Required do
       context 'is empty' do
         let(:value) { {} }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises EmptyParameter'
       end
     end
 
@@ -55,7 +55,7 @@ describe RailsSimpleParams::Validator::Required do
       context 'is empty' do
         let(:value) { [] }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises EmptyParameter'
       end
     end
 
@@ -71,7 +71,7 @@ describe RailsSimpleParams::Validator::Required do
       context 'is empty' do
         let(:value) { ActionController::Parameters.new }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises EmptyParameter'
       end
     end
 
@@ -85,7 +85,7 @@ describe RailsSimpleParams::Validator::Required do
       context 'is empty' do
         let(:value) { nil }
 
-        it_behaves_like 'raises InvalidParameterError'
+        it_behaves_like 'raises EmptyParameter'
       end
     end
   end
